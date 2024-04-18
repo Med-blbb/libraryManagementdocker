@@ -17,7 +17,7 @@ mongoose.connect(url)
     console.log('Connected to MongoDB')
 })
 
-app.use('/api', LivreModel)
+app.use('/livre', LivreRoutes)
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)

@@ -2,13 +2,25 @@ import { Router } from "express";
 import LivreModel from "../models/Livre.js";
 const route = Router();
 
-route.post('/:idLivre', async (req, res) => {
+route.get('/:idLivre', async (req, res) => {
 
     const idLivre = req.params.idLivre
-    const { code, titre, desciption, auteur } = req.body
-    const livre = new LivreModel({ code, titre, desciption, auteur })
-    await livre.save()
+try {
+    const livre = await LivreModel.findById(idLivre)
     res.send(livre)
+} catch (err) {
+    res.send(err)
+}   
+} 
+)
+route.post('/addlivre', async (req, res) => {
+    const newLivre = req.body
+    try {
+        const result = await LivreModel.create(newLivre)
+        res.send(result)
+    } catch (err) {
+        res.send(err)
+    }
 })
 
 export default route
